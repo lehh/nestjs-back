@@ -1,13 +1,17 @@
 import { UnauthorizedException } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { UserService } from './user.service';
+import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 
 @Resolver()
 export class UserResolver {
-  @Mutation()
+  @Query(() => String)
+  welcome(): string {
+    return 'Welcome to the graphql api!';
+  }
+
+  @Mutation(() => String)
   async login(
-    @Args('login', { type: () => String }) login: string,
     @Args('password', { type: () => String }) password: string,
+    @Args('login', { type: () => String }) login: string,
   ): Promise<string> {
     if (login === 'client' && password === '1234') {
       return login;

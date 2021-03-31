@@ -20,7 +20,7 @@ describe('UserResolver', () => {
         password: '1234',
       };
 
-      const result = await resolver.login(credentials.login, credentials.password);
+      const result = await resolver.login(credentials.password, credentials.login);
 
       expect(result).toEqual(credentials.login);
     });
@@ -31,7 +31,7 @@ describe('UserResolver', () => {
         password: '5678',
       };
 
-      const result = await resolver.login(credentials.login, credentials.password);
+      const result = await resolver.login(credentials.password, credentials.login);
 
       expect(result).toEqual(credentials.login);
     });
@@ -44,7 +44,7 @@ describe('UserResolver', () => {
 
       const expectedException = new UnauthorizedException('Invalid Credentials');
 
-      return expect(resolver.login(credentials.login, credentials.password)).rejects.toThrow(
+      return expect(resolver.login(credentials.password, credentials.login)).rejects.toThrow(
         expectedException,
       );
     });
