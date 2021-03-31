@@ -3,3 +3,4 @@ docker-compose.yml
 volumes
 node_modules
 .vscode
+dist

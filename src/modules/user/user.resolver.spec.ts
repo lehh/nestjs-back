@@ -1,16 +1,13 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserResolver } from './user.resolver';
-import { UserService } from './user.service';
-
-const userServiceMock = () => ({});
 
 describe('UserResolver', () => {
   let resolver: UserResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserResolver, { provide: UserService, useFactory: userServiceMock }],
+      providers: [UserResolver],
     }).compile();
 
     resolver = module.get<UserResolver>(UserResolver);
