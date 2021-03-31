@@ -1,0 +1,4 @@
+docker-compose.yml
+.env
+volumes
+node_modules
