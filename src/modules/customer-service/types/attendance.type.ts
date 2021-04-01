@@ -7,9 +7,9 @@ export class AttendanceType {
   id: number;
 
   @Field()
-  status: number;
+  finished: boolean;
 
-  @Field()
+  @Field({ nullable: true })
   duration?: number;
 
   @Field(() => [ServiceType])

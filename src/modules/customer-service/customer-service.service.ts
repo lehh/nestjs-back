@@ -3,8 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Attendance } from './entities/attendance.entity';
 import { Service } from './entities/service.entity';
+import { AttendanceType } from './types/attendance.type';
 import { ServiceType } from './types/service.type';
 
+/**
+ * Service which deals with services and attendances
+ * Validations omitted for simplicity
+ */
 @Injectable()
 export class CustomerServiceService {
   constructor(
@@ -25,5 +30,25 @@ export class CustomerServiceService {
         time,
       } as ServiceType;
     });
+  }
+
+  async createAttendance(servicesId: number[]): Promise<AttendanceType> {
+    const servicesIds = servicesId.map((id) => {
+      return {
+        id,
+      } as Service;
+    });
+
+    const createdAttendance = await this.attendanceRepository.save({ services: servicesIds });
+    const attendance = await this.attendanceRepository.findOne(createdAttendance.id, {
+      relations: ['services'],
+    });
+
+    return {
+      id: attendance.id,
+      finished: attendance.finished,
+      duration: attendance.duration,
+      services: attendance.services,
+    } as AttendanceType;
   }
 }

@@ -12,7 +12,7 @@ export class Attendance {
   @Column({ nullable: true, type: 'numeric' })
   duration: number;
 
-  @ManyToMany(() => Service, (service) => service.attendances)
+  @ManyToMany(() => Service, (service) => service.attendances, { cascade: true })
   @JoinTable({ name: 'attendance_services' })
   services: Service[];
 }
