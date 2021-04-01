@@ -16,7 +16,8 @@ function databaseConfig(): TypeOrmModuleOptions {
     username,
     password,
     database,
-    autoLoadEntities: true
+    autoLoadEntities: true,
+    synchronize: false,
   }
 }
 
