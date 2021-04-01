@@ -15,6 +15,6 @@ export class Service {
   @Column({ nullable: false, type: 'numeric' })
   commission: number;
 
-  @ManyToMany((type) => Attendance, (attendance) => attendance.services)
-  attendance: Attendance[];
+  @ManyToMany(() => Attendance, (attendance) => attendance.services)
+  attendances: Attendance[];
 }
