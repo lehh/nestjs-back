@@ -1,5 +1,5 @@
-import { Service } from "../modules/customer-service/entities/service.entity";
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { Service } from '../modules/customer-service/entities/service.entity';
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class DatabaseSeed1617240161997 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

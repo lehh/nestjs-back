@@ -1,4 +1,4 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 function databaseConfig(): TypeOrmModuleOptions {
   const {
@@ -6,7 +6,7 @@ function databaseConfig(): TypeOrmModuleOptions {
     DB_PORT: port = '5432',
     DB_USER: username = 'user',
     DB_PASSWORD: password = '123456',
-    DB_NAME: database = 'back_nestjs'
+    DB_NAME: database = 'back_nestjs',
   } = process.env;
 
   return {
@@ -18,7 +18,7 @@ function databaseConfig(): TypeOrmModuleOptions {
     database,
     autoLoadEntities: true,
     synchronize: false,
-  }
+  };
 }
 
 export const config = databaseConfig();
