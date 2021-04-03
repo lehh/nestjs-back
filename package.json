@@ -1,8 +1,9 @@
 {
   "name": "back-nestjs",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "back end in nestjs",
+  "repository": "https://github.com/lehh/nestjs-back",
+  "author": "Alessandra <aleterre10@gmail.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
