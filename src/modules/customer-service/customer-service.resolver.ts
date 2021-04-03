@@ -13,6 +13,11 @@ export class CustomerServiceResolver {
     return this.service.getAllServices();
   }
 
+  @Query(() => [AttendanceType])
+  async getAllAttendances(): Promise<AttendanceType[]> {
+    return this.service.getAllAttendances();
+  }
+
   @Mutation(() => AttendanceType)
   async createAttendance(
     @Args('servicesIds', { type: () => [Int] }) servicesIds: number[],

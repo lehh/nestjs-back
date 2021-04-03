@@ -7,8 +7,9 @@ import { ServiceType } from './types/service.type';
 
 const customerServiceServiceMock = () => ({
   getAllServices: jest.fn(),
+  getAllAttendances: jest.fn(),
   createAttendance: jest.fn(),
-  updateAttendance: jest.fn()
+  updateAttendance: jest.fn(),
 });
 
 describe('CustomerServiceResolver', () => {
@@ -42,6 +43,25 @@ describe('CustomerServiceResolver', () => {
       const result = await resolver.getAllServices();
 
       expect(result).toEqual(services);
+    });
+  });
+
+  describe('getAllAttendances', () => {
+    it('Should return all attendances', async () => {
+      const attendances = [
+        {
+          id: 1,
+          finished: false,
+          duration: 20,
+          services: [{ id: 1, commission: 1, time: 1, price: 1 } as ServiceType],
+        } as AttendanceType,
+      ];
+
+      service.getAllAttendances = jest.fn().mockResolvedValue(attendances);
+
+      const result = await resolver.getAllAttendances();
+
+      expect(result).toEqual(attendances);
     });
   });
 
@@ -82,5 +102,5 @@ describe('CustomerServiceResolver', () => {
 
       expect(result).toEqual(attendance);
     });
-  }); 
+  });
 });

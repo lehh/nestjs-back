@@ -20,6 +20,7 @@ describe('CustomerServiceService', () => {
   let attendanceRepository: Repository<Attendance>;
 
   let serviceObj: Service;
+  let attendanceObj: Attendance;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -40,6 +41,13 @@ describe('CustomerServiceService', () => {
       price: 20,
       time: 500,
     } as Service;
+
+    attendanceObj = {
+      id: 1,
+      duration: 10,
+      finished: false,
+      services: [serviceObj],
+    } as Attendance;
   });
 
   describe('getAllServices', () => {
@@ -63,24 +71,18 @@ describe('CustomerServiceService', () => {
 
   describe('createAttendance', () => {
     it('Should create attendance with received services ids', async () => {
-      const { id, commission, price, time } = serviceObj;
+      const { id, duration, finished, services } = attendanceObj;
       const servicesIds = [id];
-      const attendance = {
-        id: 1,
-        duration: null,
-        finished: false,
-        services: [{ id, commission, time, price } as Service],
-      } as Attendance;
 
       const expectedResult = {
-        id: attendance.id,
-        finished: attendance.finished,
-        duration: attendance.duration,
-        services: [{ id, commission, time, price } as ServiceType],
+        id,
+        finished,
+        duration,
+        services,
       } as AttendanceType;
 
-      attendanceRepository.save = jest.fn().mockResolvedValue(attendance);
-      attendanceRepository.findOne = jest.fn().mockResolvedValue(attendance);
+      attendanceRepository.save = jest.fn().mockResolvedValue(attendanceObj);
+      attendanceRepository.findOne = jest.fn().mockResolvedValue(attendanceObj);
 
       const result = await service.createAttendance(servicesIds);
 
@@ -101,6 +103,26 @@ describe('CustomerServiceService', () => {
       const result = await service.updateAttendance(attendance);
 
       expect(result).toEqual(attendance);
+    });
+  });
+
+  describe('getAllAttendances', () => {
+    it('Should return all attendances', async () => {
+      const { id, finished, services, duration } = attendanceObj;
+      const expectedResult = [
+        {
+          id,
+          finished,
+          duration,
+          services,
+        } as AttendanceType,
+      ];
+
+      attendanceRepository.find = jest.fn().mockResolvedValue([attendanceObj]);
+
+      const result = await service.getAllAttendances();
+
+      expect(result).toEqual(expectedResult);
     });
   });
 });

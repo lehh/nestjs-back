@@ -32,6 +32,21 @@ export class CustomerServiceService {
     });
   }
 
+  async getAllAttendances(): Promise<AttendanceType[]> {
+    const attendances = await this.attendanceRepository.find({ relations: ['services'] });
+
+    return attendances.map((attendance) => {
+      const { id, finished, duration, services } = attendance;
+
+      return {
+        id,
+        finished,
+        duration,
+        services,
+      };
+    });
+  }
+
   async createAttendance(servicesId: number[]): Promise<AttendanceType> {
     const servicesIds = servicesId.map((id) => {
       return {
