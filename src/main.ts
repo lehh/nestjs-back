@@ -9,7 +9,10 @@ import { AppModule } from './modules/app.module';
 async function bootstrap() {
   const logger = new Logger('Init');
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'log', 'warn']
+  });
+
   await app.listen(process.env.PORT);
 
   logger.log(`App listening at localhost:${process.env.PORT}`);

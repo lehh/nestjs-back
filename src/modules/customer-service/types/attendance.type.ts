@@ -1,9 +1,9 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ServiceType } from './service.type';
 
 @ObjectType('AttendanceType')
 export class AttendanceType {
-  @Field()
+  @Field(() => Int)
   id: number;
 
   @Field()

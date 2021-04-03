@@ -2,11 +2,13 @@ import { Test } from '@nestjs/testing';
 import { CustomerServiceResolver } from './customer-service.resolver';
 import { CustomerServiceService } from './customer-service.service';
 import { AttendanceType } from './types/attendance.type';
+import { AttendanceInputType } from './types/input-types/attendance.input-type';
 import { ServiceType } from './types/service.type';
 
 const customerServiceServiceMock = () => ({
   getAllServices: jest.fn(),
   createAttendance: jest.fn(),
+  updateAttendance: jest.fn()
 });
 
 describe('CustomerServiceResolver', () => {
@@ -59,4 +61,26 @@ describe('CustomerServiceResolver', () => {
       expect(result).toEqual(attendance);
     });
   });
+
+  describe('updateAttendance', () => {
+    it('Should update attendance and return it', async () => {
+      const attendanceInput = {
+        finished: true,
+        duration: 190,
+        id: 1,
+      } as AttendanceInputType;
+
+      const attendance = {
+        finished: true,
+        duration: 190,
+        id: 1,
+      } as AttendanceType;
+
+      service.updateAttendance = jest.fn().mockResolvedValue(attendance);
+
+      const result = await resolver.updateAttendance(attendanceInput);
+
+      expect(result).toEqual(attendance);
+    });
+  }); 
 });

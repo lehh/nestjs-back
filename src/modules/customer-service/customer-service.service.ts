@@ -51,4 +51,10 @@ export class CustomerServiceService {
       services: attendance.services,
     } as AttendanceType;
   }
+
+  async updateAttendance(attendance: AttendanceType): Promise<AttendanceType> {
+    await this.attendanceRepository.update(attendance.id, attendance);
+
+    return attendance;
+  }
 }

@@ -9,8 +9,9 @@ import { ServiceType } from './types/service.type';
 
 const repositoryMock = () => ({
   find: jest.fn(),
-  findOne: jest.fn,
+  findOne: jest.fn(),
   save: jest.fn(),
+  update: jest.fn(),
 });
 
 describe('CustomerServiceService', () => {
@@ -84,6 +85,22 @@ describe('CustomerServiceService', () => {
       const result = await service.createAttendance(servicesIds);
 
       expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('updateAttendance', () => {
+    it('Should update received attendance', async () => {
+      const attendance = {
+        finished: true,
+        duration: 190,
+        id: 1,
+      } as AttendanceType;
+
+      attendanceRepository.update = jest.fn().mockResolvedValue(attendance);
+
+      const result = await service.updateAttendance(attendance);
+
+      expect(result).toEqual(attendance);
     });
   });
 });
