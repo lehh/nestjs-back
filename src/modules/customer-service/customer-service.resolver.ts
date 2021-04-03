@@ -3,7 +3,7 @@ import { CustomerServiceService } from './customer-service.service';
 import { AttendanceType } from './types/attendance.type';
 import { AttendanceInputType } from './types/input-types/attendance.input-type';
 import { ServiceType } from './types/service.type';
-
+import fs from 'node:fs';
 @Resolver()
 export class CustomerServiceResolver {
   constructor(private readonly service: CustomerServiceService) {}
@@ -25,10 +25,10 @@ export class CustomerServiceResolver {
     return this.service.createAttendance(servicesIds);
   }
 
-  @Mutation(() => AttendanceType)
+  @Mutation(() => Int)
   async updateAttendance(
     @Args('AttendanceInput') input: AttendanceInputType,
-  ): Promise<AttendanceType> {
+  ): Promise<number> {
     const { id, finished, duration } = input;
 
     const attendanceType = {
@@ -37,6 +37,8 @@ export class CustomerServiceResolver {
       duration,
     } as AttendanceType;
 
-    return this.service.updateAttendance(attendanceType);
+    await this.service.updateAttendance(attendanceType);
+
+    return attendanceType.id;
   }
 }

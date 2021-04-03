@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Attendance } from './entities/attendance.entity';
 import { Service } from './entities/service.entity';
 import { AttendanceType } from './types/attendance.type';
+import { AttendanceInputType } from './types/input-types/attendance.input-type';
 import { ServiceType } from './types/service.type';
 
 /**
@@ -67,9 +68,7 @@ export class CustomerServiceService {
     } as AttendanceType;
   }
 
-  async updateAttendance(attendance: AttendanceType): Promise<AttendanceType> {
+  async updateAttendance(attendance: AttendanceInputType): Promise<void> {
     await this.attendanceRepository.update(attendance.id, attendance);
-
-    return attendance;
   }
 }

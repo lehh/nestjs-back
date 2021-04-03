@@ -83,24 +83,17 @@ describe('CustomerServiceResolver', () => {
   });
 
   describe('updateAttendance', () => {
-    it('Should update attendance and return it', async () => {
+    it('Should update attendance and return its id', async () => {
       const attendanceInput = {
         finished: true,
         duration: 190,
         id: 1,
       } as AttendanceInputType;
 
-      const attendance = {
-        finished: true,
-        duration: 190,
-        id: 1,
-      } as AttendanceType;
-
-      service.updateAttendance = jest.fn().mockResolvedValue(attendance);
-
       const result = await resolver.updateAttendance(attendanceInput);
 
-      expect(result).toEqual(attendance);
+      expect(service.updateAttendance).toBeCalled();
+      expect(result).toEqual(attendanceInput.id);
     });
   });
 });

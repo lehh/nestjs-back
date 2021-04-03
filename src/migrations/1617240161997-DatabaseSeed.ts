@@ -7,7 +7,7 @@ export class DatabaseSeed1617240161997 implements MigrationInterface {
       .createQueryBuilder()
       .insert()
       .into(Service)
-      .values([{ price: 50.1, commission: 10, time: 300 }])
+      .values([{ price: 50.1, commission: 10, time: 10 }])
       .execute();
 
     await queryRunner.manager

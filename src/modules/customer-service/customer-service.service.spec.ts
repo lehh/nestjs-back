@@ -100,9 +100,9 @@ describe('CustomerServiceService', () => {
 
       attendanceRepository.update = jest.fn().mockResolvedValue(attendance);
 
-      const result = await service.updateAttendance(attendance);
+      await service.updateAttendance(attendance);
 
-      expect(result).toEqual(attendance);
+      expect(attendanceRepository.update).toBeCalled();
     });
   });
 
