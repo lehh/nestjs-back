@@ -1,10 +1,12 @@
-version: 3
+version: '3'
 
 services:
   postgres:
     image: postgres:13
     container_name: postgres
     restart: unless-stopped
+    ports: 
+     - "5432:5432"
     environment:
       - PGUSER=user
       - PGPASSWORD=123456
